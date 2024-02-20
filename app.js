@@ -1,17 +1,7 @@
-var express = require('express');
-var app = express();
-
-app.get("/", function(req, res) {
-    res.render("home.ejs");
-});
-
-app.get("/profile", function(req, res) {
-    res.render("profile/profile.ejs");
-});
-
-app.get("/chamada", function(req, res) {
-    res.render("chamada/chamada.ejs");
-});
+var app = require("./modules/config/server");
+var rotaChamada = require("./modules/app/routes/chamada")(app);
+var rotaPerfil = require("./modules/app/routes/perfil")(app);
+var rotaUsuario = require("./modules/app/routes/usuario")(app);
 
 app.listen(3001, function() {
     console.log("Servidor rodando com express")
