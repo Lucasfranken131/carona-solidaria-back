@@ -1,9 +1,9 @@
 var DBconnection = require('../../config/sql');
 var connection = DBconnection();
 
-const getAllPassageiros = () => {
+const getAllUsuarios = () => {
     return new Promise((resolve, reject) =>{
-        const sql = 'SELECT * FROM passageiros';
+        const sql = 'SELECT * FROM usuarios';
         connection.query(sql, function(error, result) {
             if (error) {
                 console.error('Erro ao executar consulta:', error);
@@ -15,9 +15,9 @@ const getAllPassageiros = () => {
     });
 };
 
-const getOnePassageiro = (id) => {
+const getOneUsuario = (id) => {
     return new Promise((resolve, reject) => {
-        const sql = `SELECT * FROM passageiros WHERE id_passenger = ${id}`;
+        const sql = `SELECT * FROM usuarios WHERE id_user = ${id}`;
         connection.query(sql, function(error, result) {
             if (error) { 
                 console.error('Erro ao executar consulta:', error);
@@ -29,10 +29,10 @@ const getOnePassageiro = (id) => {
     });
 };
 
-const createPassageiro = (name, cpf, email, password, age, sex, phone_number, turn) => {
+const createUsuario = (name, cpf, email, password, age, sex, phone_number, turn, car_model, plate, user_type) => {
     return new Promise((resolve, reject) => {
-        const sql = 'INSERT INTO passageiros (name, cpf, email, password, age, sex, phone_number, turn) VALUES (?, ?, ?, ?, ?, ?, ?, ?)';
-        connection.query(sql, [name, cpf, email, password, age, sex, phone_number, turn], function(error, result) {
+        const sql = 'INSERT INTO usuarios (name, cpf, email, password, age, sex, phone_number, turn, car_model, plate, user_type) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
+        connection.query(sql, [name, cpf, email, password, age, sex, phone_number, turn, car_model, plate, user_type], function(error, result) {
             if (error) {
                 console.error('Erro ao executar consulta:', error);
                 console.error('Erro de MySQL:', error.sqlMessage);
@@ -44,10 +44,10 @@ const createPassageiro = (name, cpf, email, password, age, sex, phone_number, tu
     });
 };
 
-const updatePassageiro = (id, name, cpf, email, password, age, sex, phone_number, turn) => {
+const updateUsuario = (id, name, cpf, email, password, age, sex, phone_number, turn, car_model, plate, user_type) => {
     return new Promise((resolve, reject) => {
-    const sql = `UPDATE passageiros SET name = ?, cpf = ?, email = ?, password = ?, age = ?, sex = ?, phone_number = ?, turn = ? WHERE id_passenger = ${id}`;
-        connection.query(sql, [name, cpf, email, password, age, sex, phone_number, turn], function(error, result) {
+    const sql = `UPDATE usuarios SET name = ?, cpf = ?, email = ?, password = ?, age = ?, sex = ?, phone_number = ?, turn = ?, car_model = ?, plate = ?, user_type = ? WHERE id_user = ${id}`;
+        connection.query(sql, [name, cpf, email, password, age, sex, phone_number, turn, car_model, plate, user_type], function(error, result) {
             if (error) {
                 console.error('Erro ao executar consulta:', error);
                 console.error('Erro de MySQL:', error.sqlMessage);
@@ -59,9 +59,9 @@ const updatePassageiro = (id, name, cpf, email, password, age, sex, phone_number
     });
 };
 
-const deletePassageiro = (id) => {
+const deleteUsuario = (id) => {
     return new Promise((resolve, reject) => {
-        const sql = `DELETE FROM passageiros WHERE id_passenger = ${id}`;
+        const sql = `DELETE FROM usuarios WHERE id_user = ${id}`;
         connection.query(sql, function(error, result) {
             if (error) {
                 console.error('Erro ao executar consulta:', error);
@@ -75,4 +75,4 @@ const deletePassageiro = (id) => {
 };
 
 
-module.exports = { getAllPassageiros, getOnePassageiro, createPassageiro, updatePassageiro, deletePassageiro }
+module.exports = { getAllUsuarios, getOneUsuario, createUsuario, updateUsuario, deleteUsuario }

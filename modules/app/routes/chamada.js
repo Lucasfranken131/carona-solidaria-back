@@ -3,42 +3,42 @@ var query = require('../querys/queryChamada');
 module.exports = function(app) {
     app.get("/chamada/:id", async (req, res) => {
         try {
-            const perfil = await query.getOneChamada(req.params.id);
-            res.json(perfil);
+            const chamada = await query.getOneChamada(req.params.id);
+            res.json(chamada);
         }
         catch (error) {
-            res.status(404).json({ message: 'Perfil não encontrado' });
+            res.status(404).json({ message: 'chamada não encontrada' });
         }
     });
 
     app.get("/chamada", async (req, res) => {
         try {
-            const perfis = await query.getAllChamadas();
-            res.json(perfis);
+            const chamadas = await query.getAllChamadas();
+            res.json(chamadas);
         }
         catch (error) {
-            res.status(404).json({ message: 'Perfis não encontrados'})
+            res.status(404).json({ message: 'Chamadas não encontradas'})
         }
     });
 
     app.post("/chamada", async (req, res) => {
         try {
-            const { name, cpf, email, password, age, sex, phone_number, turn } = req.body;
-            const perfil = await query.createChamada(name, cpf, email, password, age, sex, phone_number, turn);
-            res.json('O perfil com id: '+ perfil.id + ' foi criado');
-            console.log("Perfil criado com sucesso");
+            const { initial_location, final_location, id_driver, id_passenger } = req.body;
+            const perfil = await query.createChamada(initial_location, final_location, id_driver, id_passenger);
+            res.json('A chamada com id: '+ perfil.id + ' foi criada');
+            console.log("Chamada criada com sucesso");
         }
         catch (error) {
-            console.error("Erro ao criar perfil:", error);
-            res.status(500).json({ message: 'Ocorreu um erro ao criar o perfil' });
+            console.error("Erro ao criar chamada:", error);
+            res.status(500).json({ message: 'Ocorreu um erro ao criar a chamada' });
         }
     });
 
     app.put("/chamada/:id", async (req, res) => {
         try {
             const id = req.params.id;
-            const { name, cpf, email, password, age, sex, phone_number, turn } = req.body;
-            const perfil = await query.updateChamada(id ,name, cpf, email, password, age, sex, phone_number, turn); 
+            const { initial_location, final_location, id_driver, id_passenger } = req.body;
+            const perfil = await query.updateChamada(id, initial_location, final_location, id_driver, id_passenger); 
             res.json('O perfil com id: '+ id + ',foi modificado ');  
         }
         catch (error) {
