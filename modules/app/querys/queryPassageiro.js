@@ -3,7 +3,8 @@ var connection = DBconnection();
 
 const getAllPassageiros = () => {
     return new Promise((resolve, reject) =>{
-        connection.query('SELECT * FROM passageiros', function(error, result) {
+        const sql = 'SELECT * FROM passageiros';
+        connection.query(sql, function(error, result) {
             if (error) {
                 console.error('Erro ao executar consulta:', error);
                 return;
@@ -16,7 +17,8 @@ const getAllPassageiros = () => {
 
 const getOnePassageiro = (id) => {
     return new Promise((resolve, reject) => {
-        connection.query(`SELECT * FROM passageiros WHERE id_passenger = ${id}`, function(error, result) {
+        const sql = `SELECT * FROM passageiros WHERE id_passenger = ${id}`;
+        connection.query(sql, function(error, result) {
             if (error) { 
                 console.error('Erro ao executar consulta:', error);
                 return;
@@ -42,5 +44,35 @@ const createPassageiro = (name, cpf, email, password, age, sex, phone_number, tu
     });
 };
 
+const updatePassageiro = (id, name, cpf, email, password, age, sex, phone_number, turn) => {
+    return new Promise((resolve, reject) => {
+    const sql = `UPDATE passageiros SET name = ?, cpf = ?, email = ?, password = ?, age = ?, sex = ?, phone_number = ?, turn = ? WHERE id_passenger = ${id}`;
+        connection.query(sql, [name, cpf, email, password, age, sex, phone_number, turn], function(error, result) {
+            if (error) {
+                console.error('Erro ao executar consulta:', error);
+                console.error('Erro de MySQL:', error.sqlMessage);
+                reject(error);
+                return;
+            }
+            resolve(result);
+        });
+    });
+};
 
-module.exports = { getAllPassageiros, getOnePassageiro, createPassageiro }
+const deletePassageiro = (id) => {
+    return new Promise((resolve, reject) => {
+        const sql = `DELETE FROM passageiros WHERE id_passenger = ${id}`;
+        connection.query(sql, function(error, result) {
+            if (error) {
+                console.error('Erro ao executar consulta:', error);
+                console.error('Erro de MySQL:', error.sqlMessage);
+                reject(error);
+                return;
+            }
+            resolve(result);
+        });
+    });
+};
+
+
+module.exports = { getAllPassageiros, getOnePassageiro, createPassageiro, updatePassageiro, deletePassageiro }
