@@ -21,6 +21,17 @@ module.exports = function(app) {
         }
     });
 
+    app.get("/chamada/active", async (req, res) => {
+        try {
+            const chamadas = await query.getAllActiveChamadas();
+            res.json(chamadas);
+        }
+        catch (error) {
+            res.status(404).json({ message: 'Chamadas não encontradas'})
+        }
+    });
+
+
     app.post("/chamada", async (req, res) => {
         try {
             const { initial_location, final_location, id_driver, id_passenger } = req.body;

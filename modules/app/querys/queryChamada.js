@@ -15,6 +15,20 @@ const getAllChamadas = () => {
     });
 };
 
+const getAllActiveChamadas = () => {
+    return new Promise((resolve, reject) =>{
+        const sql = 'SELECT * FROM chamadas WHERE active = 1';
+        connection.query(sql, function(error, result) {
+            if (error) {
+                console.error('Erro ao executar consulta:', error);
+                return;
+            }
+            console.log('Resultado da consulta:', result);
+            resolve(result)
+        });
+    });
+};
+
 const getOneChamada = (id) => {
     return new Promise((resolve, reject) => {
         const sql = `SELECT * FROM chamadas WHERE id_call = ${id}`;
@@ -75,4 +89,4 @@ const deleteChamada = (id) => {
 };
 
 
-module.exports = { getAllChamadas, getOneChamada, createChamada, updateChamada, deleteChamada }
+module.exports = { getAllChamadas, getAllActiveChamadas, getOneChamada, createChamada, updateChamada, deleteChamada }
