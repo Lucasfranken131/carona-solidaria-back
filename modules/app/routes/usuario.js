@@ -24,7 +24,7 @@ module.exports = function(app) {
     app.get("/usuario/login", async (req, res) => {
         try {
             const { email, password } = req.body;
-            const login = await query.Login(email, password);
+            const login = await query.login(email, password);
             res.json(login);
         }
         catch (error) {

@@ -29,7 +29,7 @@ const getOneUsuario = (id) => {
     });
 };
 
-const Login = (email, password) => {
+const login = (email, password) => {
     return new Promise((resolve, reject) => {
         const sql = `SELECT * FROM usuarios WHERE email = ${email} AND password = ${password}`;
         connection.query(sql,  function (error, result) {
@@ -42,7 +42,7 @@ const Login = (email, password) => {
             resolve(result);
         });
     });
-}
+};
 
 const createUsuario = (name, cpf, email, password, age, sex, phone_number, turn, car_model, plate, user_type) => {
     return new Promise((resolve, reject) => {
@@ -89,5 +89,4 @@ const deleteUsuario = (id) => {
     });
 };
 
-
-module.exports = { getAllUsuarios, getOneUsuario, Login, createUsuario, updateUsuario, deleteUsuario }
+module.exports = { getAllUsuarios, getOneUsuario, login, createUsuario, updateUsuario, deleteUsuario }
