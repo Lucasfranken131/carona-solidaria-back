@@ -1,7 +1,7 @@
 var query = require('../querys/queryChamada');
 
 module.exports = function(app) {
-    app.get("/chamada/:id", async (req, res) => {
+    app.get("/chamada/findOne/:id", async (req, res) => {
         try {
             const chamada = await query.getOneChamada(req.params.id);
             res.json(chamada);
@@ -11,7 +11,7 @@ module.exports = function(app) {
         }
     });
 
-    app.get("/chamada", async (req, res) => {
+    app.get("/chamada/findAll", async (req, res) => {
         try {
             const chamadas = await query.getAllChamadas();
             res.json(chamadas);
@@ -21,7 +21,7 @@ module.exports = function(app) {
         }
     });
 
-    app.get("/chamada/active", async (req, res) => {
+    app.get("/chamada/findActives", async (req, res) => {
         try {
             const chamadas = await query.getAllActiveChamadas();
             res.json(chamadas);
@@ -32,7 +32,7 @@ module.exports = function(app) {
     });
 
 
-    app.post("/chamada", async (req, res) => {
+    app.post("/chamada/createOne", async (req, res) => {
         try {
             const { initial_location, final_location, id_driver, id_passenger } = req.body;
             const perfil = await query.createChamada(initial_location, final_location, id_driver, id_passenger);
@@ -45,7 +45,7 @@ module.exports = function(app) {
         }
     });
 
-    app.put("/chamada/:id", async (req, res) => {
+    app.put("/chamada/updateOne/:id", async (req, res) => {
         try {
             const id = req.params.id;
             const { initial_location, final_location, id_driver, id_passenger } = req.body;
@@ -58,7 +58,7 @@ module.exports = function(app) {
         }
    });
 
-   app.delete("/chamada/:id", async (req, res) => {
+   app.delete("/chamada/deleteOne/:id", async (req, res) => {
         try{
             const id = req.params.id;
             const perfil = await query.deleteChamada(id);
