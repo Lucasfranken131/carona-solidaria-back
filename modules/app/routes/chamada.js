@@ -34,8 +34,8 @@ module.exports = function(app) {
 
     app.post("/chamada/createOne", async (req, res) => {
         try {
-            const { initial_location, final_location, id_driver, id_passenger } = req.body;
-            const perfil = await query.createChamada(initial_location, final_location, id_driver, id_passenger);
+            const { initial_location, final_location, driver_name, passenger_name } = req.body;
+            const perfil = await query.createChamada(initial_location, final_location, driver_name, passenger_name);
             res.json('A chamada com id: '+ perfil.id + ' foi criada');
             console.log("Chamada criada com sucesso");
         }
@@ -48,8 +48,8 @@ module.exports = function(app) {
     app.put("/chamada/updateOne/:id", async (req, res) => {
         try {
             const id = req.params.id;
-            const { initial_location, final_location, id_driver, id_passenger } = req.body;
-            const perfil = await query.updateChamada(id, initial_location, final_location, id_driver, id_passenger); 
+            const { initial_location, final_location, driver_name, passenger_name } = req.body;
+            const perfil = await query.updateChamada(id, initial_location, final_location, driver_name, passenger_name); 
             res.json('O perfil com id: '+ id + ',foi modificado ');  
         }
         catch (error) {
