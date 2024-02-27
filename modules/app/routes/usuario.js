@@ -1,7 +1,7 @@
 var query = require('../querys/queryUsuario');
 
 module.exports = function(app) {
-    app.get("/usuario/:id", async (req, res) => {
+    app.get("/usuario/findOne/:id", async (req, res) => {
         try {
             const usuario = await query.getOneUsuario(req.params.id);
             res.json(usuario);
@@ -11,7 +11,7 @@ module.exports = function(app) {
         }
     });
 
-    app.get("/usuario", async (req, res) => {
+    app.get("/usuario/findAll", async (req, res) => {
         try {
             const usuarios = await query.getAllUsuarios();
             res.json(usuarios);
@@ -21,7 +21,18 @@ module.exports = function(app) {
         }
     });
 
-    app.post("/usuario", async (req, res) => {
+    app.get("/usuario/login", async (req, res) => {
+        try {
+            const { email, password } = req.body;
+            const login = await query.Login(email, password);
+            res.json(login);
+        }
+        catch (error) {
+            res.status(404).json({ message: 'Não foi possível fazer Login'})
+        }
+    });
+
+    app.post("/usuario/createOne", async (req, res) => {
         try {
             const { name, cpf, email, password, age, sex, phone_number, turn, car_model, plate, user_type } = req.body;
             const perfil = await query.createUsuario(name, cpf, email, password, age, sex, phone_number, turn, car_model, plate, user_type);
@@ -34,7 +45,7 @@ module.exports = function(app) {
         }
     });
 
-    app.put("/usuario/:id", async (req, res) => {
+    app.put("/usuario/updateOne/:id", async (req, res) => {
         try {
             const id = req.params.id;
             const { name, cpf, email, password, age, sex, phone_number, turn, car_model, plate, user_type } = req.body;
@@ -47,7 +58,7 @@ module.exports = function(app) {
         }
    });
 
-   app.delete("/usuario/:id", async (req, res) => {
+   app.delete("/usuario/deleteOne/:id", async (req, res) => {
         try{
             const id = req.params.id;
             const perfil = await query.deleteUsuario(id);

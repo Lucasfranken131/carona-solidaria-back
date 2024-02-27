@@ -29,6 +29,21 @@ const getOneUsuario = (id) => {
     });
 };
 
+const Login = (email, password) => {
+    return new Promise((resolve, reject) => {
+        const sql = `SELECT * FROM usuarios WHERE email = ${email} AND password = ${password}`;
+        connection.query(sql,  function (error, result) {
+            if (error) {
+                console.error('Erro ao executar consulta:', error);
+                console.error('Erro de MySQL:', error.sqlMessage);
+                reject(error);
+                return;
+            }
+            resolve(result);
+        });
+    });
+}
+
 const createUsuario = (name, cpf, email, password, age, sex, phone_number, turn, car_model, plate, user_type) => {
     return new Promise((resolve, reject) => {
         const sql = 'INSERT INTO usuarios (name, cpf, email, password, age, sex, phone_number, turn, car_model, plate, user_type) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
@@ -75,4 +90,4 @@ const deleteUsuario = (id) => {
 };
 
 
-module.exports = { getAllUsuarios, getOneUsuario, createUsuario, updateUsuario, deleteUsuario }
+module.exports = { getAllUsuarios, getOneUsuario, Login, createUsuario, updateUsuario, deleteUsuario }
