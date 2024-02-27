@@ -58,10 +58,10 @@ const createChamada = (initial_location, final_location, driver_name, passenger_
     });
 };
 
-const updateChamada = (id, initial_location, final_location, driver_name, passenger_name) => {
+const updateChamada = (id, initial_location, final_location, driver_name, passenger_name, active) => {
     return new Promise((resolve, reject) => {
-    const sql = `UPDATE chamadas SET initial_location = ?, final_location = ?, driver_name = ?, passenger_name = ? WHERE id_call = ${id}`;
-        connection.query(sql, [initial_location, final_location, driver_name, passenger_name], function(error, result) {
+    const sql = `UPDATE chamadas SET initial_location = ?, final_location = ?, driver_name = ?, passenger_name = ?, active = ? WHERE id_call = ${id}`;
+        connection.query(sql, [initial_location, final_location, driver_name, passenger_name, active], function(error, result) {
             if (error) {
                 console.error('Erro ao executar consulta:', error);
                 console.error('Erro de MySQL:', error.sqlMessage);
