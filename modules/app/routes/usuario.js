@@ -38,6 +38,7 @@ module.exports = function(app) {
             const perfil = await query.createUsuario(name, cpf, email, password, age, sex, phone_number, turn, car_model, plate, user_type);
             res.json('O perfil com id: '+ perfil.id + ' foi criado');
             console.log("Perfil criado com sucesso");
+            return res;
         }
         catch (error) {
             console.error("Erro ao criar perfil:", error);
