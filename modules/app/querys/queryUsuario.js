@@ -31,8 +31,8 @@ const getOneUsuario = (id) => {
 
 const login = (email, password) => {
     return new Promise((resolve, reject) => {
-        const sql = `SELECT * FROM usuarios WHERE email = ${email} AND password = ${password}`;
-        connection.query(sql,  function (error, result) {
+        const sql = 'SELECT * FROM usuarios WHERE email = ? AND password = ?';
+        connection.query(sql, [email, password], function (error, result) {
             if (error) {
                 console.error('Erro ao executar consulta:', error);
                 console.error('Erro de MySQL:', error.sqlMessage);
