@@ -26,6 +26,7 @@ module.exports = function(app) {
             const { email, password } = req.body;
             const login = await query.login(email, password);
             res.json(login);
+            return login;
         }
         catch (error) {
             res.status(404).json({ message: 'Não foi possível fazer Login'})
@@ -36,7 +37,7 @@ module.exports = function(app) {
         try {
             const { name, cpf, email, password, age, sex, phone_number, turn, car_model, plate, user_type } = req.body;
             const perfil = await query.createUsuario(name, cpf, email, password, age, sex, phone_number, turn, car_model, plate, user_type);
-            res.json('O perfil com id: '+ perfil.id + ' foi criado');
+            res.json(perfil);
             console.log("Perfil criado com sucesso");
             return res;
         }
@@ -51,7 +52,7 @@ module.exports = function(app) {
             const id = req.params.id;
             const { name, cpf, email, password, age, sex, phone_number, turn, car_model, plate, user_type } = req.body;
             const perfil = await query.updateUsuario(id ,name, cpf, email, password, age, sex, phone_number, turn, car_model, plate, user_type); 
-            res.json('O perfil com id: '+ id + ',foi modificado ');  
+            res.json(perfil);  
         }
         catch (error) {
             console.error("Erro ao modificar o perfil:", error);

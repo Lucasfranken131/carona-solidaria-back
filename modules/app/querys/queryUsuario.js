@@ -39,7 +39,7 @@ const login = (email, password) => {
                 reject(error);
                 return;
             }
-            resolve(result);
+            return resolve(result);
         });
     });
 };

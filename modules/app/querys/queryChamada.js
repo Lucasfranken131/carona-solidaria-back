@@ -43,25 +43,25 @@ const getOneChamada = (id) => {
     });
 };
 
-const createChamada = (initial_location, final_location, call_creator, call_acceptor) => {
+const createChamada = (initial_location, final_location, call_creator, call_creator_number, call_acceptor) => {
     return new Promise((resolve, reject) => {
-        const sql = 'INSERT INTO chamadas () VALUES (?, ?, ?, ?)';
-        connection.query(sql, [initial_location, final_location, call_creator, call_acceptor], function(error, result) {
+        const sql = 'INSERT INTO chamadas (initial_location, final_location, call_creator, call_creator_number, call_acceptor) VALUES (?, ?, ?, ?, ?)';
+        connection.query(sql, [initial_location, final_location, call_creator, call_creator_number, call_acceptor], function(error, result) {
             if (error) {
                 console.error('Erro ao executar consulta:', error);
                 console.error('Erro de MySQL:', error.sqlMessage);
                 reject(error);
                 return;
             }
-            resolve({ id: result.insertId });
+            resolve(result);
         });
     });
 };
 
-const updateChamada = (id, initial_location, final_location, call_creator, call_acceptor, active) => {
+const updateChamada = (id, initial_location, final_location, call_creator, call_creator_number, call_acceptor, active) => {
     return new Promise((resolve, reject) => {
-    const sql = `UPDATE chamadas SET initial_location = ?, final_location = ?, call_creator = ?, call_acceptor = ?, active = ? WHERE id_call = ${id}`;
-        connection.query(sql, [initial_location, final_location, call_creator, call_acceptor, active], function(error, result) {
+    const sql = `UPDATE chamadas SET initial_location = ?, final_location = ?, call_creator = ?, call_creator_number = ?, call_acceptor = ?, active = ? WHERE id_call = ${id}`;
+        connection.query(sql, [initial_location, final_location, call_creator, call_creator_number, call_acceptor, active], function(error, result) {
             if (error) {
                 console.error('Erro ao executar consulta:', error);
                 console.error('Erro de MySQL:', error.sqlMessage);
