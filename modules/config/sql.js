@@ -4,7 +4,7 @@ module.exports = function() {
     return mysql.createConnection({
     host: "localhost",
     user: "root",
-    port: "3308",
+    port: "3306",
     password: "",
     database: "carona_solidaria"
 })};
